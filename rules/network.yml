@@ -1,0 +1,278 @@
+# 网络设备：交换机、路由器、防火墙（Cisco、Huawei、H3C、Ruijie、Juniper），串口和 Telnet
+# 不加 -c 时，程序、连接的主机名或 --tags 匹配下面任一项就用这套规则（不区分大小写的通配符）
+match:
+  commands: [telnet, tio, minicom, picocom, cu]
+  hosts: ['*ruijie*', '*huawei*', '*h3c*', '*cisco*', '*juniper*', '*switch*', '*router*', '*firewall*']
+  tags: [switch, router, firewall, network, ruijie, huawei, h3c, cisco, juniper]
+
+palette:
+  Red       : "#FF5555"
+  Pink      : "#FF79C6"
+  Purple    : "#BD93F9"
+  Orange    : "#FFB86C"
+  Yellow    : "#F1FA8C"
+  Green     : "#50FA7B"
+  Cyan      : "#8BE9FD"
+  Comment   : "#6272A4"
+  Foreground: "#F8F8F2"
+
+rules:
+  # =========================
+  # Prompt / hostname / command
+  # =========================
+  # tio 逐行时间戳 [hh:mm:ss.sss]：调暗；下面锚定行首的规则用后行断言跳过它
+  # 不能设 exclusive：会连紧挨在后面的匹配一起挡掉
+  - description: tio timestamp
+    regex: '^\[\d{2}:\d{2}:\d{2}\.\d{3}\] '
+    color: f.Comment
+
+  # Ruijie(config-if-GigabitEthernet 0/1)#  <Huawei>  [~Huawei-GigabitEthernet0/0/1]  user@host:~$
+  - description: Prompt
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))([\w.@:/~-]+(\([\w ./:-]+\))?[#>$]|<[\w.@-]+>|\[[~*]?[\w.@-]+(-[\w ./:-]+)?\])'
+    color: f.Pink bold
+    exclusive: true
+
+  - description: Hostname
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))(hostname|sysname|system-name)\s+(\S+)$'
+    color:
+      1: f.Pink
+      2: f.Yellow bold
+    exclusive: true
+
+  - description: Common commands
+    regex: '\b(show|display|configure|terminal|write|copy|reload|ping|traceroute|telnet|ssh|commit|rollback|save|debug|clear)\b'
+    color: f.Orange bold
+
+  # =========================
+  # Address / URL
+  # =========================
+  - description: URL
+    regex: '\bhttps?://[^\s]+'
+    color: f.Green underline
+    exclusive: true
+
+  - description: RD RT IP
+    regex: '\b(RT:)?((25[0-5]|(2[0-4]|[0-1]?\d)?\d)\.){3}(25[0-5]|(2[0-4]|[0-1]?\d)?\d):[1-9]\d{0,4}\b'
+    color: f.Cyan
+    exclusive: true
+
+  - description: IPv4 with optional mask
+    regex: '\b((25[0-5]|(2[0-4]|[0-1]?\d)?\d)\.){3}(25[0-5]|(2[0-4]|[0-1]?\d)?\d)(/\d{1,2})?\b'
+    color: f.Cyan
+
+  - description: IPv6
+    regex: '(?i)(?<![\w:.])(?:::ffff:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)|[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){7}|(?=[0-9a-f:]*[0-9a-f])(?:[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6})?::(?:[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6})?)(?![\w:])'
+    color: f.Cyan
+
+  - description: MAC address
+    regex: '\b(?:(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}|(?:[0-9A-Fa-f]{4}[.-]){2}[0-9A-Fa-f]{4}|[0-9A-Fa-f]{12})\b'
+    color: f.Orange italic
+
+  # =========================
+  # Interface
+  # =========================
+  - description: Interface name
+    regex: '(?i)\b(?:(?:Hu(?:ndredGigabit)?|Fo(?:rtyGigabit)?|Te(?:nGigabit)?|Gi(?:gabit)?|Fa(?:st)?)(?:Ethernet)?|Eth|Et|Se(?:rial)?|Lo(?:opback)?|Tu(?:nnel)?|VL(?:AN)?|Po(?:rt-channel)?|Port-channel|Eth-Trunk|Bridge-Aggregation|AggregatePort|Mgmt|Dialer|BVI|Virtual-(?:Template|Access)|NVE|VX|BD|ge-|xe-|et-)\s*[-\d/.:]+(?:\.\d+)?\b'
+    color: f.Green bold
+    exclusive: true
+
+  - description: Interface config header
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*(interface|Interface)\s+.*$'
+    color: f.Green bold
+
+  - description: Interface status header
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] )).*\bis\s+(UP|DOWN|administratively DOWN).*,\s+line protocol is\s+(UP|DOWN).*$'
+    color:
+      0: f.Foreground
+      1: f.Green bold
+      2: f.Green bold
+
+  - description: Description
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*(description|Description:)\s+(\[.*?\]|.*)$'
+    color:
+      1: f.Orange bold
+      2: f.Foreground italic
+
+  - description: Medium fiber
+    regex: '(?i)\bfiber\b'
+    color: f.Pink
+
+  - description: Medium copper
+    regex: '(?i)\bcopper\b'
+    color: f.Yellow
+
+  # =========================
+  # Status / warning / error
+  # =========================
+  - description: Bad status
+    regex: '(?i)\b(administratively\s+down|down|fail(?:ed)?|not\s+active|not\s+activated|bad|never|denied|invalid|err-disabled|err-disable|disabled|unusable|inaccessible|wrong|cannot|blocking|notconnect|shutdown|disconnected|off)\b'
+    color: f.Red bold
+
+  - description: Good status
+    regex: '(?i)\b(up|connected|enabled|active|yes|auto|on|forwarding|synchronized|root|best|full|1000M|10G)\b'
+    color: f.Green bold
+
+  - description: Warning status
+    regex: '(?i)\b(inactive|standby|hot-standby|passive|learning|listening|mismatch|reset|resets|backup|repair)\b'
+    color: f.Orange bold
+
+  - description: Warning counters
+    regex: '(?i)\b(dropped|drops|discard|CRC|errors?|runts|giants|collisions?|underruns?|overrun|abort|no buffer)\b'
+    color: f.Yellow bold
+
+  - description: Nonzero interface errors
+    regex: '(?i)\b[1-9]\d*\s+((input |output )?errors?|CRC|frame|overrun|abort|collisions?|interface resets?|dropped|underruns?|no buffer|runts|giants|discard)\b'
+    color: f.Red bold
+
+  - description: Zero interface errors
+    regex: '(?i)\b0\s+((input |output )?errors?|CRC|frame|overrun|abort|collisions?|interface resets?|dropped|underruns?|no buffer|runts|giants|discard)\b'
+    color: f.Comment
+
+  # =========================
+  # VLAN / switching
+  # =========================
+  - description: VLAN header
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))vlan(?: range)?\s+([0-9, -]+)'
+    color:
+      0: f.Yellow bold
+      1: f.Foreground bold
+
+  - description: VLAN and trunk keywords
+    regex: '(?i)\b(vlan|native|allowed|trunk|access|switchport|spanning-tree|stp|rstp|mstp|pvst\+|lacp)\b'
+    color: f.Yellow
+
+  - description: VLAN name
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s+name\s+.*'
+    color: f.Orange
+
+  # =========================
+  # Routing / policy / ACL
+  # =========================
+  - description: Static route
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*(ip route|ipv6 route)\s+.*'
+    color: f.Cyan bold
+
+  - description: Route policy
+    regex: '(?i)\b(route-map|route-policy|prefix-list|ip prefix-list|policy|next-hop|metric|distance|redistribute|default-information originate)\b'
+    color: f.Purple
+
+  - description: ACL header
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*(ip access-list|access-list|acl|rule)\b.*'
+    color: f.Purple bold
+
+  - description: Permit
+    regex: '(?i)\bpermit\b'
+    color: f.Green bold
+
+  - description: Deny
+    regex: '(?i)\bdeny\b'
+    color: f.Red bold
+
+  # =========================
+  # Protocols / services
+  # =========================
+  - description: Routing protocols
+    regex: '(?i)\b(BGP|OSPF|EIGRP|RIP|ISIS|IS-IS|MPLS|LDP|RSVP|BFD|PIM|IGMP|MSDP)\b'
+    color: f.Orange bold
+
+  - description: Network services
+    regex: '(?i)\b(HSRP|VRRP|GLBP|CDP|LLDP|NTP|SNMP|TACACS\+|RADIUS|SSH|SSHD|Telnet|FTP|TFTP|HTTP|HTTPS|DNS|DHCP|ARP|ICMP|UDP|TCP)\b'
+    color: f.Pink
+
+  - description: VPN overlay
+    regex: '(?i)\b(vpn|ipsec|gre|l2tp|pptp|crypto|isakmp|esp|tunnel|transform-set|phase1|phase2|vxlan|evpn|vtep|vni|overlay|underlay|fabric|srv6)\b'
+    color: f.Purple italic
+
+  # =========================
+  # Security / credentials
+  # =========================
+  - description: Credentials
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*(username|enable secret|enable password|password|secret)\b.*'
+    color: f.Pink bold
+
+  - description: Security keywords
+    regex: '(?i)\b(encryption|key|privilege|md5|sha256|sha1-96|sha1|sha2-256|sha2-512|aes|des|3des|rsa|authentication|authorization|accounting)\b'
+    color: f.Pink
+
+  - description: No password encryption
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))no service password-encryption$'
+    color: f.Red bold underline
+
+  - description: No command
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*no\s+.*'
+    color: f.Red
+
+  # =========================
+  # QoS / wireless / hardware
+  # =========================
+  - description: QoS
+    regex: '(?i)\b(qos|policy-map|class-map|service-policy|priority|bandwidth|shape|police|match|set dscp|set precedence|random-detect)\b'
+    color: f.Purple
+
+  - description: Wireless
+    regex: '(?i)\b(ssid|wlan|radio|channel|power|beacon|dtim|rts|cts|fragmentation|802\.11[abgn]?|wifi|access\s+point|controller)\b'
+    color: f.Yellow
+
+  - description: Hardware
+    regex: '(?i)\b(linecard|module|server|power\s+supply|fan|temperature|cpu|memory|flash|nvram|buffered)\b'
+    color: f.Yellow italic
+
+  # =========================
+  # Syslog / log level
+  # =========================
+  - description: Syslog emergency-error
+    regex: '%\w+-[0-3]-\w+\b'
+    color: f.Red bold
+
+  - description: Syslog warning-notice
+    regex: '%\w+-[4-5]-\w+\b'
+    color: f.Yellow bold
+
+  - description: Syslog info-debug
+    regex: '%\w+-[6-7]-\w+\b'
+    color: f.Cyan
+
+  - description: Log level
+    regex: '(?i)\b(emergencies|alerts|critical|errors|warnings|notifications|informational|debugging)\b'
+    color: f.Orange italic
+
+  # =========================
+  # Interface detail / counters
+  # =========================
+  - description: Interface attributes
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s+(Hardware is|MTU|BW|Encapsulation|Keepalive|Carrier delay|Ethernet attributes:|Medium-type|Admin duplex mode|Admin speed|Flow control|Admin negotiation).*$'
+    color: f.Purple
+
+  - description: Traffic rate
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*(Input peak rate|Output peak rate|\d+\s+seconds input rate|\d+\s+seconds output rate|Rxload|Txload).*$'
+    color: f.Cyan
+
+  - description: Counters
+    regex: '(?i)(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s+\d+\s+(packets input|packets output|broadcasts|bytes).*$'
+    color: f.Comment
+
+  # =========================
+  # Time / duration / metrics
+  # =========================
+  - description: Date time
+    regex: '\b\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\b'
+    color: f.Orange
+
+  - description: Duration
+    regex: '(?i)\b(\d{1,5}w\dd|\d{1,5}d\d{1,2}h|(?:\d+\s+(?:year|month|week|day|hour|minute|second)s?,?\s*)+)\b'
+    color: f.Yellow
+
+  - description: Routing metrics
+    regex: '\b\[\d{1,3}/\d{1,12}\]|\(\d{1,12}/\d{1,12}\)\b'
+    color: f.Yellow
+
+  # =========================
+  # Comment / separator
+  # =========================
+  - description: Separator
+    regex: '(?:^|(?<=^\[\d{2}:\d{2}:\d{2}\.\d{3}\] ))\s*!+\s*$'
+    color: f.Comment
+
+  - description: Bracket comments
+    regex: '\[.*?\]'
+    color: f.Comment italic

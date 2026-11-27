@@ -1,0 +1,148 @@
+Ruijie(config-if-GigabitEthernet 0/1)# show interface GigabitEthernet 0/1
+<Huawei>display interface brief
+[~Huawei-GigabitEthernet0/0/1]description [uplink to core]
+[38;2;255;121;198m[1muser@host:~$[22m[39m ssh admin@[38;2;139;233;253m10.0.0.1[39m
+[10:21:33.456] <H3C>display current-configuration
+[10:21:33.457] interface Vlan-interface100
+[10:21:33.458]  description Management VLAN
+hostname core-sw-01
+ sysname AGG-01
+GigabitEthernet0/1 is [38;2;80;250;123mup[39m, line protocol is [38;2;80;250;123mup[39m (connected)
+GigabitEthernet0/2 is administratively [38;2;255;85;85m[1mdown[22m[39m, line protocol is [38;2;255;85;85m[1mdown[22m[39m ([38;2;241;250;140mdisabled[39m)
+Interface GigabitEthernet1/0/24 is [38;2;255;85;85m[1mDOWN[22m[39m, line protocol is [38;2;255;85;85m[1mDOWN[22m[39m
+  Hardware is Gigabit Ethernet, address is 0011.2233.4455 (bia 0011.2233.4455)
+  MTU [38;2;255;184;108m1500 bytes[39m, BW 1000000 Kbit/sec, DLY 10 usec,
+  Encapsulation ARPA, loopback not set
+  Keepalive set (10 sec)
+  Full-duplex, 1000Mb/s, media type is 10/100/1000BaseTX fiber
+  5 minute input rate 2000 bits/sec, 3 packets/sec
+  300 seconds input rate 12345 bits/sec
+Input peak rate 1000 bits/sec, Record time: [38;2;98;114;164m2026-11-21 10:00:00[39m
+     12345 packets input, [38;2;255;184;108m6789012 bytes[39m, 0 no buffer
+     0 input [38;2;255;85;85m[1merrors[22m[39m, 0 CRC, 0 frame, 0 overrun, 0 ignored
+     3 input [38;2;255;85;85m[1merrors[22m[39m, 12 CRC, 1 frame, 2 overrun, 0 abort
+     0 output [38;2;255;85;85m[1merrors[22m[39m, 5 collisions, 1 interface resets
+     10 runts, 0 giants, 7 dropped, 1 underruns
+Medium-type: copper, Admin duplex mode: auto, Admin speed: [38;2;255;184;108m1000M[39m
+Rxload 1/255, Txload 2/255
+interface Ten-GigabitEthernet1/0/49
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30-40
+ switchport mode access
+ switchport access vlan 100
+ spanning-tree portfast
+vlan 10,20,30-40
+ name SERVERS
+vlan range 100 - 200
+Eth-Trunk1  [38;2;80;250;123mup[39m  [38;2;80;250;123mup[39m  [38;2;255;184;108m10G[39m  Bridge-Aggregation2 [38;2;255;85;85m[1mdown[22m[39m
+Port-channel1  Po2  Te1/0/1  Fa0/1  Se0/0/0  Lo0  Tu100  VLAN10  Mgmt0  ge-0/0/1  xe-1/0/0.100
+ip route [38;2;139;233;253m0.0.0.0[39m [38;2;139;233;253m0.0.0.0[39m [38;2;139;233;253m192.168.1.254[39m
+ipv6 route ::/0 [38;2;139;233;253m2001:db8::1[39m
+ip route-static [38;2;139;233;253m10.10.0.0[39m [38;2;139;233;253m255.255.0.0[39m [38;2;139;233;253m172.16.0.1[39m preference 60
+route-map RM-OUT permit 10
+ match ip address prefix-list PL-DEFAULT
+ set metric 100
+ip access-list extended ACL-IN
+ permit tcp any host [38;2;139;233;253m10.1.1.1[39m eq 22
+ deny ip any any log
+acl number 3000
+ rule 5 permit ip source [38;2;139;233;253m10.0.0.0[39m [38;2;139;233;253m0.0.0.255[39m
+router bgp 65001
+ neighbor [38;2;139;233;253m10.0.0.2[39m remote-as 65002
+BGP router identifier [38;2;139;233;253m1.1.1.1[39m, local AS number 65001
+OSPF Process 1 with Router ID [38;2;139;233;253m2.2.2.2[39m
+rd 65001:100  RT:[38;2;139;233;253m10.0.0.1:200[39m route-target 65001:1
+B    [38;2;139;233;253m10.2.0.0/16[39m [20/0] via [38;2;139;233;253m10.0.0.2[39m, 1w2d
+O    [38;2;139;233;253m10.3.0.0/24[39m [110/2] via [38;2;139;233;253m10.0.0.3[39m, 00:01:02, GigabitEthernet0/0
+S*   [38;2;139;233;253m0.0.0.0/0[39m [1/0] via [38;2;139;233;253m192.168.1.1[39m (110/20)
+Inet [38;2;139;233;253m2001:0db8:85a3:0000:0000:8a2e:0370:7334[39m/64 [38;2;139;233;253mfe80::1[39m [38;2;139;233;253m::ffff:[38;2;139;233;253m192.0.2.1[38;2;139;233;253m[39m
+MAC [38;2;255;184;108m[3m00:11:22:33:44:55[23m[39m 00-11-22-33-44-55 001122334455 0011.2233.4455
+See [38;2;139;233;253m[4mhttps://example.com/docs?id=1[24m[39m or [38;2;139;233;253m[4mhttp://10.0.0.1:8080/path[24m[39m
+username admin privilege 15 secret 5 $1$abcd$xyz
+enable secret 9 $9$hash
+password cipher %^%#abc%^%#
+no service password-encryption
+no ip domain-lookup
+ no shutdown
+ shutdown
+snmp-server community public RO
+ntp server [38;2;139;233;253m10.0.0.10[39m
+crypto isakmp policy 10
+ encryption aes 256
+ authentication pre-share
+interface Tunnel0
+ tunnel mode ipsec ipv4
+vxlan vni 10010 evpn overlay underlay
+policy-map QOS-OUT
+ class-map match-any VOICE
+ set dscp ef
+ priority 1000
+ bandwidth percent 20
+wlan ssid CORP radio 802.11ac channel 36 power 20
+Power Supply 1 is [38;2;80;250;123mOK[39m, Fan 2 [38;2;255;85;85m[1mfailed[22m[39m, Temperature 45C
+CPU utilization for five seconds: 5%/0%; memory [38;2;255;184;108m512M[39m flash [38;2;255;184;108m1G[39m
+*[38;2;98;114;164mNov 21 10:00:00[39m.123: %LINK-3-UPDOWN: Interface GigabitEthernet0/1, changed state to [38;2;255;85;85m[1mdown[22m[39m
+*[38;2;98;114;164mNov 21 10:00:01[39m.456: %LINEPROTO-5-UPDOWN: Line protocol on Interface Gi0/1, changed state to [38;2;80;250;123mup[39m
+*[38;2;98;114;164mNov 21 10:00:02[39m.789: %SYS-6-LOGGINGHOST_STARTSTOP: Logging to host [38;2;139;233;253m10.0.0.5[39m [38;2;80;250;123mstarted[39m
+logging trap informational
+logging buffered 64000 debugging
+Uptime is 1 year, 2 weeks, 3 days, 4 hours, 5 minutes
+System uptime 12d3h, last change 2w1d
+!
+  !!  
+Spanning tree [38;2;80;250;123menabled[39m protocol rstp, root bridge, forwarding, blocking, learning
+Status: standby, hot-standby, [38;2;241;250;140minactive[39m, mismatch, backup repair
+LACP mode [38;2;80;250;123mactive[39m; port is passive; [38;2;255;85;85m[1merr[22m[39m-[38;2;241;250;140mdisabled[39m; notconnect
+HSRP VRRP LLDP CDP DHCP DNS ARP ICMP UDP TCP TFTP FTP Telnet SSH
+[31mred text[0m GigabitEthernet0/1 is [38;2;80;250;123mup[39m
+[1m[32mbold green [38;2;139;233;253m10.0.0.1[32m[0m and [38;5;208morange[39m [38;2;255;85;85m[1mdown[22m[39m
+[38;2;10;20;30mrgb [38;2;80;250;123mup[38;2;10;20;30m[0m [48;5;17mbg [38;2;255;85;85m[1mdown[22m[39m[49m
+[4munderlined [38;2;80;250;123mup[39m[24m [7minvert[27m [3mitalic [38;2;255;85;85m[1mdown[22m[39m[23m
+pre [32mgreen [1mbold [38;2;80;250;123mup[32m[22m still green[39m post [38;2;255;85;85m[1mdown[22m[39m
+[0mempty reset[0m[1mbold[38;5mbroken[38;2;1mbroken2
+[?25l[2K[1Ghidden cursor line [38;2;80;250;123mup[39m[?25h
+]0;window title upafter title [38;2;255;85;85m[1mdown[1m[39m
+]8;;http://example.com\link]8;;\ trailing
+(B)0charset [38;2;139;233;253m10.0.0.1[39m
+7saved8 restored [38;2;80;250;123mup[39m
+col[10Cumn[5Dback [38;2;255;85;85m[1mdown[1m[39m
+[38;2;255;121;198m[1m(venv) hello@ubuntu-01:~/app$[1m[39m systemctl status [38;2;189;147;249mnginx.service[39m
+[38;2;255;121;198m[1mroot@ubuntu-01:/etc#[1m[39m cat ssh/sshd_config
+[38;2;98;114;164m# PermitRootLogin prohibit-password[39m
+[38;2;98;114;164m  ; semicolon comment in an ini file[39m
+     Active: [38;2;80;250;123m[1mactive (running)[1m[39m since Sat [38;2;98;114;164m2026-11-21 10:00:00[39m CST; 2h ago
+     Active: [38;2;98;114;164m[1minactive (dead)[1m[39m
+     Active: [38;2;255;85;85m[1mfailed[1m[39m (Result: exit-code) since [38;2;98;114;164m2026-11-21T10:00:00+08:00[39m
+   Loaded: [38;2;80;250;123mloaded[39m (/lib/systemd/system/[38;2;189;147;249mnginx.service[39m; [38;2;80;250;123menabled[39m; preset: [38;2;80;250;123menabled[39m)
+[38;2;98;114;164mNov 21 10:00:01[39m ubuntu-01 sshd[1234]: [38;2;255;85;85m[1mFailed[1m[39m password for root from [38;2;139;233;253m203.0.113.9[39m port 22 ssh2
+[38;2;98;114;164mNov  1 09:05:07[39m ubuntu-01 kernel: Out of memory: [38;2;255;85;85m[1mKilled[1m[39m process 4321 (java)
+[38;2;98;114;164m2026-11-21 10:00:00,123[39m [38;2;241;250;140mWARNING[39m [38;2;241;250;140mdeprecated[39m option, [38;2;241;250;140mretrying[39m in 5s
+[38;2;98;114;164m2026-11-21T10:00:00.123Z[39m [38;2;98;114;164m[1mINFO[1m[39m server [38;2;80;250;123mstarted[39m, [38;2;80;250;123mlistening[39m on [38;2;139;233;253m0.0.0.0:8080[39m
+[38;2;98;114;164m2026-11-21 10:00:00[39m [38;2;98;114;164m[1mDEBUG[1m[39m connection [38;2;80;250;123mestablished[39m to [[38;2;139;233;253m2001:db8::1[39m]:443
+[38;2;255;85;85m[1merror[1m[39m: [38;2;255;85;85m[1mpermission denied[1m[39m; [38;2;255;85;85m[1mPermission denied[1m[39m; [38;2;255;85;85m[1mNo such file or directory[1m[39m
+bash: foo: [38;2;255;85;85m[1mcommand not found[1m[39m
+CONTAINER ID   IMAGE   STATUS                     NAMES
+3f2a1b        redis   [38;2;80;250;123mUp[39m 3 hours ([38;2;80;250;123mhealthy[39m)       cache
+9c8d7e        app     [38;2;255;85;85m[1mExited[1m[39m (1) 2 minutes ago   web   [38;2;241;250;140mrestarting[39m [38;2;255;85;85m[1munhealthy[1m[39m
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        [38;2;255;184;108m98G[39m   [38;2;255;184;108m91G[39m  [38;2;255;184;108m2.5G[39m  [38;2;255;85;85m[1m98%[1m[39m /
+/dev/sdb1       [38;2;255;184;108m1.8T[39m  [38;2;255;184;108m1.4T[39m  [38;2;255;184;108m400G[39m  [38;2;241;250;140m78%[39m /data
+tmpfs           [38;2;255;184;108m3.9G[39m     0  [38;2;255;184;108m3.9G[39m   0% /dev/shm
+Mem:           [38;2;255;184;108m15Gi[39m       [38;2;255;184;108m7.2Gi[39m       [38;2;255;184;108m1.1Gi[39m       [38;2;255;184;108m512MiB[39m  [38;2;255;184;108m1024 bytes[39m
+4 packets transmitted, 4 received, [38;2;80;250;123m[1m0% packet loss[1m[39m, time 3004ms
+4 packets transmitted, 0 received, [38;2;255;85;85m[1m100% packet loss[1m[39m, time 3060ms
+10 packets transmitted, 7 received, [38;2;241;250;140m[1m30% packet loss[1m[39m
+[38;2;139;233;253m203.0.113.9[39m - - [21/Nov/2026:10:00:00 +0800] "[38;2;189;147;249m[1mGET[1m[39m /index.html HTTP/1.1" [38;2;80;250;123m200[39m 612 "-" "curl/8.0"
+[38;2;139;233;253m203.0.113.9[39m - - [21/Nov/2026:10:00:01 +0800] "[38;2;189;147;249m[1mPOST[1m[39m /api/login HTTP/1.1" [38;2;241;250;140m[1m401[1m[39m 33
+[38;2;139;233;253m203.0.113.9[39m - - [21/Nov/2026:10:00:02 +0800] "[38;2;189;147;249m[1mGET[1m[39m /api HTTP/1.1" [38;2;255;85;85m[1m502[1m[39m 157
+eth0: link [38;2;80;250;123mup[39m, [38;2;139;233;253m192.168.1.10/24[39m, [38;2;139;233;253m10.0.0.5:22[39m, mac [38;2;255;184;108m[3m52:54:00:12:34:56[23m[39m, [38;2;80;250;123mok[39m [38;2;80;250;123mready[39m
+curl [38;2;139;233;253m[4mhttps://example.com/path?q=1[24m[39m [38;2;80;250;123mOK[39m, version 1.2.3.4.5 not an address
+接口 GigabitEthernet0/1 状态 [38;2;80;250;123mup[39m，描述 上联核心
+错误 3 input [38;2;255;85;85m[1merrors[1m[39m 中文 [38;2;255;85;85m[1mdown[1m[39m
+[38;2;255;85;85m[1minvalid[1m[39m �� bytes [38;2;139;233;253m10.0.0.1[39m �
+tab	here	[38;2;80;250;123mup[39m	tab
+backspace[38;2;80;250;123mup[39m
+bell [38;2;255;85;85m[1mdown[1m[39m
+
+   
+line feedverticalform feed [38;2;255;85;85m[1mdown[1m[39mcarriage return [38;2;80;250;123mup[39m

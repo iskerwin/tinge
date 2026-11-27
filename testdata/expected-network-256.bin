@@ -1,0 +1,148 @@
+[38;5;212m[1mRuijie(config-if-GigabitEthernet 0/1)#[22m[39m [38;5;215m[1mshow[22m[39m interface [38;5;84m[1mGigabitEthernet 0/1[22m[39m
+[38;5;212m[1m<Huawei>[22m[39m[38;5;215m[1mdisplay[22m[39m interface brief
+[38;5;212m[1m[~Huawei-GigabitEthernet0/0/1][22m[39m[38;5;215m[1mdescription[22m[39m [38;5;255m[3m[38;5;61m[3m[uplink to core][3m[38;5;255m[23m[39m
+[38;5;212m[1muser@host:~$[22m[39m [38;5;215m[1m[38;5;212mssh[38;5;215m[22m[39m admin@[38;5;117m10.0.0.1[39m
+[38;5;61m[38;5;61m[3m[10:21:33.456][23m[38;5;61m [39m[38;5;212m[1m<H3C>[22m[39m[38;5;215m[1mdisplay[22m[39m current-configuration
+[38;5;61m[38;5;61m[3m[10:21:33.457][23m[38;5;61m [39minterface [38;5;84m[1mVlan-[22m[39minterface100
+[38;5;61m[38;5;61m[3m[10:21:33.458][23m[38;5;61m [39m [38;5;215m[1mdescription[22m[39m [38;5;255m[3mManagement [38;5;228mVLAN[38;5;255m[23m[39m
+[38;5;212mhostname[39m [38;5;228m[1mcore-sw-01[22m[39m
+ sysname AGG-01
+[38;5;84m[1mGigabitEthernet0/1[22m[39m is [38;5;84m[1mup[22m[39m, line protocol is [38;5;84m[1mup[22m[39m ([38;5;84m[1mconnected[22m[39m)
+[38;5;84m[1mGigabitEthernet0/2[22m[39m is [38;5;203m[1madministratively down[22m[39m, line protocol is [38;5;203m[1mdown[22m[39m ([38;5;203m[1mdisabled[22m[39m)
+Interface [38;5;84m[1mGigabitEthernet1/0/24[22m[39m is [38;5;203m[1mDOWN[22m[39m, line protocol is [38;5;203m[1mDOWN[22m[39m
+[38;5;141m  Hardware is Gigabit Ethernet, address is [38;5;215m[3m0011.2233.4455[23m[38;5;141m (bia [38;5;215m[3m0011.2233.4455[23m[38;5;141m)[39m
+[38;5;141m  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,[39m
+[38;5;141m  Encapsulation ARPA, loopback not set[39m
+[38;5;141m  Keepalive set (10 sec)[39m
+  [38;5;84m[1mFull[22m[39m-duplex, 1000Mb/s, media type is 10/100/1000BaseTX [38;5;212mfiber[39m
+  [38;5;228m5 minute [39minput rate 2000 bits/sec, 3 packets/sec
+[38;5;117m  [38;5;228m300 seconds [38;5;117minput rate 12345 bits/sec[39m
+[38;5;117mInput peak rate 1000 bits/sec, Record time: [38;5;215m2026-11-21 10:00:00[38;5;117m[39m
+[38;5;61m     12345 packets input, 6789012 bytes, [38;5;61m0 [38;5;228m[1mno buffer[38;5;228m[38;5;228m[22m[39m
+     [38;5;61m0 input [38;5;228m[1m[38;5;215m[3merrors[23m[38;5;228m[38;5;228m[22m[39m, [38;5;61m0 [38;5;228m[1mCRC[38;5;228m[22m[39m, [38;5;61m0 frame[39m, [38;5;61m0 [38;5;228m[1moverrun[38;5;228m[22m[39m, 0 ignored
+     [38;5;203m[1m3 input [38;5;228m[1m[38;5;215m[3merrors[23m[38;5;228m[1m[38;5;228m[22m[39m, [38;5;203m[1m12 [38;5;228m[1mCRC[1m[38;5;228m[22m[39m, [38;5;203m[1m1 frame[22m[39m, [38;5;203m[1m2 [38;5;228m[1moverrun[1m[38;5;228m[22m[39m, [38;5;61m0 [38;5;228m[1mabort[38;5;228m[22m[39m
+     [38;5;61m0 output [38;5;228m[1m[38;5;215m[3merrors[23m[38;5;228m[38;5;228m[22m[39m, [38;5;203m[1m5 [38;5;228m[1mcollisions[1m[38;5;228m[22m[39m, [38;5;203m[1m1 interface [38;5;215m[1mresets[1m[38;5;215m[22m[39m
+     [38;5;203m[1m10 [38;5;228m[1mrunts[1m[38;5;228m[22m[39m, [38;5;61m0 [38;5;228m[1mgiants[38;5;228m[22m[39m, [38;5;203m[1m7 [38;5;228m[1mdropped[1m[38;5;228m[22m[39m, [38;5;203m[1m1 [38;5;228m[1munderruns[1m[38;5;228m[22m[39m
+Medium-type: [38;5;228mcopper[39m, Admin duplex mode: [38;5;84m[1mauto[22m[39m, Admin speed: [38;5;84m[1m1000M[22m[39m
+[38;5;117mRxload 1/255, Txload 2/255[39m
+interface Ten-[38;5;84m[1mGigabitEthernet1/0/49[22m[39m
+ port link-type [38;5;228mtrunk[39m
+ port [38;5;228mtrunk[39m allow-pass [38;5;84m[1mvlan 10[22m[39m 20 30-40
+ [38;5;228mswitchport[39m mode [38;5;228maccess[39m
+ [38;5;228mswitchport[39m [38;5;228maccess[39m [38;5;84m[1mvlan 100[22m[39m
+ [38;5;228mspanning-tree[39m portfast
+[38;5;84m[1mvlan 10[22m[39m,20,30-40
+[38;5;215m name SERVERS[39m
+[38;5;228m[1m[38;5;228mvlan[38;5;228m range [38;5;255m[1m100 - 200[1m[38;5;228m[22m[39m
+[38;5;84m[1mEth-[22m[39mTrunk1  [38;5;84m[1mup[22m[39m  [38;5;84m[1mup[22m[39m  [38;5;84m[1m10G[22m[39m  [38;5;84m[1mBridge-Aggregation2[22m[39m [38;5;203m[1mdown[22m[39m
+[38;5;84m[1mPort-channel1[22m[39m  [38;5;84m[1mPo2[22m[39m  [38;5;84m[1mTe1/0/1[22m[39m  [38;5;84m[1mFa0/1[22m[39m  [38;5;84m[1mSe0/0/0[22m[39m  [38;5;84m[1mLo0[22m[39m  [38;5;84m[1mTu100[22m[39m  [38;5;84m[1mVLAN10[22m[39m  [38;5;84m[1mMgmt0[22m[39m  [38;5;84m[1mge-0/0/1[22m[39m  [38;5;84m[1mxe-1/0/0.100[22m[39m
+[38;5;117m[1mip route [38;5;117m0.0.0.0[38;5;117m [38;5;117m0.0.0.0[38;5;117m [38;5;117m192.168.1.254[22m[38;5;117m[39m
+[38;5;117m[1mipv6 route ::/0 [38;5;117m2001:db8::1[22m[38;5;117m[39m
+ip route-static [38;5;117m10.10.0.0[39m [38;5;117m255.255.0.0[39m [38;5;117m172.16.0.1[39m preference 60
+[38;5;141mroute-map[39m RM-OUT [38;5;84m[1mpermit[22m[39m 10
+ [38;5;141mmatch[39m ip address [38;5;141mprefix-list[39m PL-DEFAULT
+ set [38;5;141mmetric[39m 100
+[38;5;141m[1mip [38;5;228maccess[38;5;141m-list extended ACL-IN[22m[39m
+ [38;5;84m[1mpermit[22m[39m [38;5;212mtcp[39m any host [38;5;117m10.1.1.1[39m eq 22
+ [38;5;203m[1mdeny[22m[39m ip any any log
+[38;5;141m[1macl number 3000[22m[39m
+[38;5;141m[1m rule 5 [38;5;84m[1mpermit[1m[38;5;141m ip source [38;5;117m10.0.0.0[38;5;141m [38;5;117m0.0.0.255[22m[38;5;117m[39m
+router [38;5;215m[1mbgp[22m[39m 65001
+ neighbor [38;5;117m10.0.0.2[39m remote-as 65002
+[38;5;215m[1mBGP[22m[39m router identifier [38;5;117m1.1.1.1[39m, local AS number 65001
+[38;5;215m[1mOSPF[22m[39m Process 1 with Router ID [38;5;117m2.2.2.2[39m
+rd 65001:100  [38;5;117mRT:10.0.0.1:200[39m route-target 65001:1
+B    [38;5;117m10.2.0.0/16[39m [38;5;61m[3m[20/0][23m[39m via [38;5;117m10.0.0.2[39m, [38;5;228m1w2d[39m
+O    [38;5;117m10.3.0.0/24[39m [38;5;61m[3m[110/2][23m[39m via [38;5;117m10.0.0.3[39m, 00:01:02, [38;5;84m[1mGigabitEthernet0/0[22m[39m
+S*   [38;5;117m0.0.0.0/0[39m [38;5;61m[3m[1/0][23m[39m via [38;5;117m192.168.1.1[39m (110/20)
+Inet [38;5;117m2001:0db8:85a3:0000:0000:8a2e:0370:7334[39m/64 [38;5;117mfe80::1[39m [38;5;117m::ffff:[38;5;117m192.0.2.1[38;5;117m[39m
+MAC [38;5;215m[3m00:11:22:33:44:55[23m[39m [38;5;215m[3m00-11-22-33-44-55[23m[39m [38;5;215m[3m001122334455[23m[39m [38;5;215m[3m0011.2233.4455[23m[39m
+See [38;5;84m[4mhttps://example.com/docs?id=1[24m[39m or [38;5;84m[4mhttp://10.0.0.1:8080/path[24m[39m
+[38;5;212m[1musername admin [38;5;212mprivilege[38;5;212m 15 secret 5 $1$abcd$xyz[22m[39m
+[38;5;212m[1menable secret 9 $9$hash[22m[39m
+[38;5;212m[1mpassword cipher %^%#abc%^%#[22m[39m
+[38;5;203m[1m[4m[38;5;203mno service password-[38;5;212mencryption[38;5;212m[24m[22m[38;5;212m[39m
+[38;5;203mno ip domain-lookup[39m
+[38;5;203m no [38;5;203m[1mshutdown[38;5;203m[22m[39m
+ [38;5;203m[1mshutdown[22m[39m
+[38;5;212msnmp[39m-[38;5;228m[3mserver[23m[39m community public RO
+[38;5;212mntp[39m [38;5;228m[3mserver[23m[39m [38;5;117m10.0.0.10[39m
+[38;5;141m[3mcrypto[23m[39m [38;5;141m[3misakmp[23m[39m [38;5;141mpolicy[39m 10
+ [38;5;212mencryption[39m [38;5;212maes[39m 256
+ [38;5;212mauthentication[39m pre-share
+interface [38;5;84m[1mTunnel0[22m[39m
+ [38;5;141m[3mtunnel[23m[39m mode [38;5;141m[3mipsec[23m[39m ipv4
+[38;5;141m[3mvxlan[23m[39m [38;5;141m[3mvni[23m[39m 10010 [38;5;141m[3mevpn[23m[39m [38;5;141m[3moverlay[23m[39m [38;5;141m[3munderlay[23m[39m
+[38;5;141m[38;5;141mpolicy[38;5;141m-map[39m [38;5;141mQOS[39m-OUT
+ [38;5;141mclass-map[39m [38;5;141mmatch[39m-any VOICE
+ [38;5;141mset dscp[39m ef
+ [38;5;141mpriority[39m 1000
+ [38;5;141mbandwidth[39m percent 20
+[38;5;228mwlan[39m [38;5;228mssid[39m CORP [38;5;228mradio[39m 802.11ac [38;5;228mchannel[39m 36 [38;5;228mpower[39m 20
+[38;5;228m[38;5;228m[3mPower[38;5;228m Supply[23m[39m 1 is OK, [38;5;228m[3mFan[23m[39m 2 [38;5;203m[1mfailed[22m[39m, [38;5;228m[3mTemperature[23m[39m 45C
+[38;5;228m[3mCPU[23m[39m utilization for five seconds: 5%/0%; [38;5;228m[3mmemory[23m[39m 512M [38;5;228m[3mflash[23m[39m 1G
+*Nov 21 10:00:00.123: [38;5;203m[1m%LINK-3-UPDOWN[22m[39m: Interface [38;5;84m[1mGigabitEthernet0/1[22m[39m, changed state to [38;5;203m[1mdown[22m[39m
+*Nov 21 10:00:01.456: [38;5;228m[1m%LINEPROTO-5-UPDOWN[22m[39m: Line protocol [38;5;84m[1mon[22m[39m Interface [38;5;84m[1mGi0/1[22m[39m, changed state to [38;5;84m[1mup[22m[39m
+*Nov 21 10:00:02.789: [38;5;117m%SYS-6-LOGGINGHOST_STARTSTOP[39m: Logging to host [38;5;117m10.0.0.5[39m started
+logging trap [38;5;215m[3minformational[23m[39m
+logging [38;5;228m[3mbuffered[23m[39m 64000 [38;5;215m[3mdebugging[23m[39m
+Uptime is [38;5;228m1 year, 2 weeks, 3 days, 4 hours, 5 minutes[39m
+System uptime [38;5;228m12d3h[39m, last change [38;5;228m2w1d[39m
+[38;5;61m![39m
+[38;5;61m  !!  [39m
+Spanning tree [38;5;84m[1menabled[22m[39m protocol [38;5;228mrstp[39m, [38;5;84m[1mroot[22m[39m bridge, [38;5;84m[1mforwarding[22m[39m, [38;5;203m[1mblocking[22m[39m, [38;5;215m[1mlearning[22m[39m
+Status: [38;5;215m[1mstandby[22m[39m, [38;5;215m[1mhot-standby[22m[39m, [38;5;215m[1minactive[22m[39m, [38;5;215m[1mmismatch[22m[39m, [38;5;215m[1mbackup[22m[39m [38;5;215m[1mrepair[22m[39m
+[38;5;228mLACP[39m mode [38;5;84m[1mactive[22m[39m; port is [38;5;215m[1mpassive[22m[39m; [38;5;203m[1merr-disabled[22m[39m; [38;5;203m[1mnotconnect[22m[39m
+[38;5;212mHSRP[39m [38;5;212mVRRP[39m [38;5;212mLLDP[39m [38;5;212mCDP[39m [38;5;212mDHCP[39m [38;5;212mDNS[39m [38;5;212mARP[39m [38;5;212mICMP[39m [38;5;212mUDP[39m [38;5;212mTCP[39m [38;5;212mTFTP[39m [38;5;212mFTP[39m [38;5;212mTelnet[39m [38;5;212mSSH[39m
+[31mred text[0m [38;5;84m[1mGigabitEthernet0/1[22m[39m is [38;5;84m[1mup[22m[39m
+[1m[32mbold green [38;5;117m10.0.0.1[32m[0m and [38;5;208morange[39m [38;5;203m[1mdown[22m[39m
+[38;2;10;20;30mrgb [38;5;84m[1mup[22m[38;2;10;20;30m[0m [48;5;17mbg [38;5;203m[1mdown[22m[39m[49m
+[4munderlined [38;5;84m[1mup[22m[39m[24m [7minvert[27m [3mitalic [38;5;203m[1mdown[22m[39m[23m
+pre [32mgreen [1mbold [38;5;84m[1mup[1m[32m[22m still green[39m post [38;5;203m[1mdown[22m[39m
+[0mempty reset[0m[1mbold[38;5mbroken[38;2;1mbroken2
+[?25l[2K[1Ghidden cursor line [38;5;84m[1mup[1m[39m[?25h
+]0;window title upafter title [38;5;203m[1mdown[1m[39m
+]8;;http://example.com\link]8;;\ trailing
+(B)0charset [38;5;117m10.0.0.1[39m
+7saved8 restored [38;5;84m[1mup[1m[39m
+col[10Cumn[5Dback [38;5;203m[1mdown[1m[39m
+(venv) hello@ubuntu-01:~/app$ systemctl status nginx.service
+[38;5;212m[1mroot@ubuntu-01:/etc#[1m[39m cat [38;5;215m[1m[38;5;212mssh[38;5;215m[1m[39m/sshd_config
+# PermitRootLogin prohibit-password
+  ; semicolon comment in an ini file
+     [38;5;84m[1mActive[1m[39m: [38;5;84m[1mactive[1m[39m (running) since Sat [38;5;215m2026-11-21 10:00:00[39m CST; 2h ago
+     [38;5;84m[1mActive[1m[39m: [38;5;215m[1minactive[1m[39m (dead)
+     [38;5;84m[1mActive[1m[39m: [38;5;203m[1mfailed[1m[39m (Result: exit-code) since 2026-11-21T10:00:00+08:00
+   Loaded: loaded (/lib/systemd/system/nginx.service; [38;5;84m[1menabled[1m[39m; preset: [38;5;84m[1menabled[1m[39m)
+Nov 21 10:00:01 ubuntu-01 [38;5;212msshd[39m[38;5;61m[3m[1234][23m[39m: [38;5;203m[1mFailed[1m[39m password for [38;5;84m[1mroot[1m[39m from [38;5;117m203.0.113.9[39m port 22 ssh2
+Nov  1 09:05:07 ubuntu-01 kernel: Out of [38;5;228m[3mmemory[23m[39m: Killed process 4321 (java)
+[38;5;215m2026-11-21 10:00:00[39m,123 WARNING deprecated option, retrying in 5s
+2026-11-21T10:00:00.123Z INFO [38;5;228m[3mserver[23m[39m started, [38;5;215m[1mlistening[1m[39m [38;5;84m[1mon[1m[39m [38;5;117m0.0.0.0:8080[39m
+[38;5;215m2026-11-21 10:00:00[39m DEBUG connection established to [38;5;61m[3m[[38;5;117m2001:db8::1[38;5;61m][23m[39m:443
+[38;5;228m[1merror[1m[39m: permission [38;5;203m[1mdenied[1m[39m; Permission [38;5;203m[1mdenied[1m[39m; No such file or directory
+bash: foo: command not found
+CONTAINER ID   IMAGE   STATUS                     NAMES
+3f2a1b        redis   [38;5;84m[1mUp[1m[39m [38;5;228m3 hours[39m (healthy)       cache
+9c8d7e        app     Exited (1) [38;5;228m2 minutes [39mago   web   restarting unhealthy
+Filesystem      Size  Used Avail Use% Mounted [38;5;84m[1mon[1m[39m
+/dev/sda1        98G   91G  2.5G  98% /
+/dev/sdb1       1.8T  1.4T  400G  78% /data
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+Mem:           15Gi       7.2Gi       1.1Gi       512MiB  1024 bytes
+4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+4 packets transmitted, 0 received, 100% packet loss, time 3060ms
+10 packets transmitted, 7 received, 30% packet loss
+[38;5;117m203.0.113.9[39m - - [38;5;61m[3m[21/Nov/2026:10:00:00 +0800][23m[39m "GET /index.html [38;5;212mHTTP[39m/1.1" 200 612 "-" "curl/8.0"
+[38;5;117m203.0.113.9[39m - - [38;5;61m[3m[21/Nov/2026:10:00:01 +0800][23m[39m "POST /api/login [38;5;212mHTTP[39m/1.1" 401 33
+[38;5;117m203.0.113.9[39m - - [38;5;61m[3m[21/Nov/2026:10:00:02 +0800][23m[39m "GET /api [38;5;212mHTTP[39m/1.1" 502 157
+[38;5;84m[1meth0[1m[39m: link [38;5;84m[1mup[1m[39m, [38;5;117m192.168.1.10/24[39m, [38;5;117m10.0.0.5:22[39m, mac [38;5;215m[3m52:54:00:12:34:56[23m[39m, ok ready
+curl [38;5;84m[4mhttps://example.com/path?q=1[24m[39m OK, version [38;5;117m1.2.3.4[39m.5 not an address
+接口 [38;5;84m[1mGigabitEthernet0/1[1m[39m 状态 [38;5;84m[1mup[1m[39m，描述 上联核心
+错误 [38;5;203m[1m3 input [38;5;228m[1m[38;5;215m[3merrors[23m[38;5;228m[1m[38;5;228m[1m[39m 中文 [38;5;203m[1mdown[1m[39m
+[38;5;203m[1minvalid[1m[39m �� bytes [38;5;117m10.0.0.1[39m �
+tab	here	[38;5;84m[1mup[1m[39m	tab
+backspace[38;5;84m[1mup[1m[39m
+bell [38;5;203m[1mdown[1m[39m
+
+   
+line feedverticalform feed [38;5;203m[1mdown[1m[39mcarriage return [38;5;84m[1mup[1m[39m

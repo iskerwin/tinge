@@ -1,0 +1,21 @@
+# 影响清单：改了左边的文件，右边的通常也要一起更新。impact-check 读它（提交时、agent 收尾时），
+# impact-check 由 dotfiles 安装。格式见 `impact-check -h`；漏了的关联直接加一行，改完跑 impact-check --lint。
+
+src/main.rs -> README.md | 选项表和 USAGE 文本一致
+src/main.rs -> README.zh-CN.md | 选项表和 USAGE 文本一致
+src/select.rs -> README.md#Rules | 规则集怎么选
+src/pty.rs -> tests/cli.rs | 伪终端行为的回归测试
+rules/*.yml -> testdata/ | UPDATE=1 cargo test --test snapshot，逐条确认快照变化
+rules/*.yml -> README.md#Rules
+rules/network.yml -> ~/Developer/zsh-remote/lib.zsh | 新的设备词也加进 _rmt_device_pat
+src/highlight/*.rs -> testdata/ | 高亮结果变了要更新快照
+src/stream.rs -> tests/snapshot.rs | 切分变了，快照也会变
+testdata/corpus.py -> testdata/corpus.bin | uv run --no-project python testdata/corpus.py
+Cargo.toml -> Cargo.lock | cargo build 更新锁文件
+.github/workflows/* -> README.md#Test
+.github/workflows/* -> AGENTS.md#测试
+README.md -> AGENTS.md | 测试、发布方法两边一致
+
+# README 中英文两版内容要一致
+README.md -> README.zh-CN.md | 英文版改了，中文版同步
+README.zh-CN.md -> README.md | 中文版改了，英文版同步

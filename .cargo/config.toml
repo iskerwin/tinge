@@ -1,0 +1,4 @@
+# PCRE2 is built from source and linked in, so the binary doesn't depend on
+# whichever libpcre2 the machine has (and its JIT support)
+[env]
+PCRE2_SYS_STATIC = "1"

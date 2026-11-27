@@ -1,0 +1,145 @@
+# Linux / Unix 服务器：shell、systemd、日志、docker、df / free / ping、Web 访问日志
+# 没有别的规则集匹配时用这套（default）
+match:
+  default: true
+
+palette:
+  Red       : "#FF5555"
+  Pink      : "#FF79C6"
+  Purple    : "#BD93F9"
+  Orange    : "#FFB86C"
+  Yellow    : "#F1FA8C"
+  Green     : "#50FA7B"
+  Cyan      : "#8BE9FD"
+  Comment   : "#6272A4"
+  Foreground: "#F8F8F2"
+
+rules:
+  # =========================
+  # Exclusive: matched first, nothing else colors inside them
+  # =========================
+  # (venv) user@host:~/dir$   root@host:/etc#
+  - description: Prompt
+    regex: '^(?:\([\w.-]+\) )?[\w.-]+@[\w.-]+:[^\s$#]*[$#](?= |$)'
+    color: f.Pink bold
+    exclusive: true
+
+  # 配置文件和脚本里的注释整行调暗
+  - description: Comment line
+    regex: '^\s*[#;].*$'
+    color: f.Comment
+    exclusive: true
+
+  - description: URL
+    regex: '\b(?:https?|ftp|sftp|ssh|git|wss?)://[^\s<>"'']+'
+    color: f.Cyan underline
+    exclusive: true
+
+  - description: Ping loss none
+    regex: '(?<![\d.])0(?:\.0+)?% packet loss'
+    color: f.Green bold
+    exclusive: true
+
+  - description: Ping loss total
+    regex: '(?<![\d.])100(?:\.0+)?% packet loss'
+    color: f.Red bold
+    exclusive: true
+
+  - description: Ping loss some
+    regex: '\b\d+(?:\.\d+)?% packet loss'
+    color: f.Yellow bold
+    exclusive: true
+
+  # =========================
+  # Time
+  # =========================
+  - description: ISO date time
+    regex: '\b\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}(?::\d{2}(?:[.,]\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?\b'
+    color: f.Comment
+
+  - description: Syslog date time
+    regex: '\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [ \d]\d \d{2}:\d{2}:\d{2}\b'
+    color: f.Comment
+
+  # =========================
+  # Address
+  # =========================
+  - description: IPv4 with optional mask or port
+    regex: '(?<![\w.])(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:/\d{1,2}|:\d{1,5})?(?![\w.])'
+    color: f.Cyan
+
+  - description: IPv6
+    regex: '(?i)(?<![\w:.])(?:::ffff:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)|[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){7}|(?=[0-9a-f:]*[0-9a-f])(?:[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6})?::(?:[0-9a-f]{1,4}(?::[0-9a-f]{1,4}){0,6})?)(?![\w:])'
+    color: f.Cyan
+
+  - description: MAC address
+    regex: '\b(?:[0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}\b'
+    color: f.Orange italic
+
+  # =========================
+  # State
+  # =========================
+  # systemctl status: Active: active (running) / inactive (dead) / failed (Result: exit-code)
+  - description: systemd active
+    regex: '\bactive \((?:running|exited|listening|waiting)\)'
+    color: f.Green bold
+    exclusive: true
+
+  - description: systemd inactive
+    regex: '\binactive \(dead\)'
+    color: f.Comment bold
+    exclusive: true
+
+  - description: systemd unit
+    regex: '\b[\w@:.\\-]+\.(?:service|socket|timer|target|mount|path|slice|scope|device)\b'
+    color: f.Purple
+
+  - description: Error
+    regex: '(?i)\b(?:error|errors|err|fail|failed|failure|fatal|crit(?:ical)?|emerg(?:ency)?|alert|panic|denied|refused|unreachable|timed out|timeout|segfault|oom|killed|exited|dead|down|unhealthy|invalid|corrupt(?:ed)?|unauthorized|forbidden)\b|\bNo such file or directory\b|\bPermission denied\b|\bcommand not found\b'
+    color: f.Red bold
+
+  - description: Warning
+    regex: '(?i)\b(?:warn|warning|warnings|deprecated|degraded|retry(?:ing)?|skipped|pending|inactive|disabled|unknown|restarting|paused)\b'
+    color: f.Yellow
+
+  # 后面紧跟冒号的是标签（Active:、Loaded:），不上色
+  - description: Good
+    regex: '(?i)\b(?:ok|success(?:ful(?:ly)?)?|succeeded|passed|done|active|running|enabled|started|listen(?:ing)?|established|healthy|up|online|ready|loaded|complete(?:d)?)\b(?!:)'
+    color: f.Green
+
+  - description: Log level info
+    regex: '\b(?:INFO|NOTICE|DEBUG|TRACE)\b'
+    color: f.Comment bold
+
+  # =========================
+  # Numbers
+  # =========================
+  # df / top：用量 90% 以上红，70%-89% 黄
+  - description: Usage high
+    regex: '(?<![\d.])(?:9\d|100)(?:\.\d+)?%'
+    color: f.Red bold
+
+  - description: Usage medium
+    regex: '(?<![\d.])[78]\d(?:\.\d+)?%'
+    color: f.Yellow
+
+  - description: Size
+    regex: '(?<![\w.])\d+(?:\.\d+)?(?:[KMGTP]i?B?|B| ?bytes)(?![\w.])'
+    color: f.Orange
+
+  # nginx / apache 访问日志："GET /path HTTP/1.1" 200 1234
+  - description: HTTP method
+    regex: '(?<=")(?:GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS|CONNECT)(?= )'
+    color: f.Purple bold
+
+  - description: HTTP 2xx 3xx
+    regex: '(?<=" )[23]\d\d(?= )'
+    color: f.Green
+
+  - description: HTTP 4xx
+    regex: '(?<=" )4\d\d(?= )'
+    color: f.Yellow bold
+
+  - description: HTTP 5xx
+    regex: '(?<=" )5\d\d(?= )'
+    color: f.Red bold
